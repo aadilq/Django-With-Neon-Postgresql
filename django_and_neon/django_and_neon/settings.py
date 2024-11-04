@@ -1,3 +1,7 @@
+from os import getenv
+from dotenv import load_dotenv
+
+load_dotenv()
 """
 Django settings for django_and_neon project.
 
@@ -75,8 +79,15 @@ WSGI_APPLICATION = 'django_and_neon.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': getenv('PGDATABASE'),
+        'USER': getenv('PGUSER'),
+        'PASSWORD': getenv('PGPASSWORD'),
+        'HOST': getenv('PGHOST'),
+        'PORT': getenv('PGPORT', 5432),
+        'OPTIONS': {
+             'sslmode': 'require',
+        }
     }
 }
 
